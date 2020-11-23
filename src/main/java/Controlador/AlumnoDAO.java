@@ -3,13 +3,31 @@ package controlador;
 
 
 
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 //Data Access Object
 public class AlumnoDAO {
-
+    
+    
+    
+    
+    
+    public void agregarRegistro(String idOrden, String fecha, int cantidad, String tipoPago, String idMesero)throws SQLException{
+        
+        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("(call EntradaArticulo(?,?,?,?,?))");
+        entrada.setString(1,idOrden);
+        entrada.setString(2,fecha);
+        entrada.setInt(3,cantidad); 
+        entrada.setString(4,tipoPago);
+        entrada.setString(5,idMesero);
+        entrada.execute();
+        
+        
+    }
+    /*
     //========================Metodos que permiten realizar las operaciones ABCC ============================
 
     public boolean agregarAlumno(Alumno a){
@@ -83,5 +101,5 @@ public class AlumnoDAO {
         return null;
     }
 
-
+*/
 }

@@ -6,13 +6,18 @@
 package Vista;
 
 import Modelo.ModeloOrden;
+import controlador.AlumnoDAO;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Felipe
  */
 public class Formulario extends javax.swing.JFrame {
-
+    ResultSet res;
+    boolean count;
+    
     /**
      * Creates new form Formulario
      */
@@ -39,7 +44,7 @@ public class Formulario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         idMesero = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        tipoPago = new javax.swing.JCheckBox();
+        tipoPago = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,7 +60,7 @@ public class Formulario extends javax.swing.JFrame {
 
         jLabel3.setText("Cantidad");
 
-        jLabel4.setText("Pago en");
+        jLabel4.setText("Tipo de Pago");
 
         jLabel5.setText("idMesero");
 
@@ -66,7 +71,6 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
-        tipoPago.setText("Efectivo");
         tipoPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoPagoActionPerformed(evt);
@@ -79,18 +83,17 @@ public class Formulario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1)
-                        .addComponent(fecha)
-                        .addComponent(idOrden)
-                        .addComponent(cantidad)
-                        .addComponent(idMesero)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(fecha)
+                    .addComponent(idOrden)
+                    .addComponent(cantidad)
+                    .addComponent(idMesero)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                     .addComponent(tipoPago))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
@@ -112,7 +115,7 @@ public class Formulario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tipoPago)
+                .addComponent(tipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -126,22 +129,54 @@ public class Formulario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void idOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idOrdenActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_idOrdenActionPerformed
 
-    private void tipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoPagoActionPerformed
-
     public void crearOrden(){
-      ModeloOrden modelo =  new ModeloOrden(this.idOrden.getText(),Integer.parseInt(this.cantidad.getText()), this.fecha.getText(), this.tipoPago.isSelected(), this.idMesero.getText());
-      String cadena = "";
+        
+            
+        count = false;
+        if (idOrden.getText().isEmpty() || !(cantidad.getText().matches("[0-9]*")) || fecha.getText().isEmpty() || tipoPago.getText().isEmpty() || idMesero.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "tiene numeros");
+        }else{
+            JOptionPane.showMessageDialog(null, "No tiene numeros");
+            try {
+                res = Prueba.Conexión.Consulta("Select COUNT(idOrden) from Ordenes where idOrden= " + idOrden.getText().trim() +"'");
+                try {
+                    while(res.next()){
+                        if (res.getString(1).equals(idOrden.getText())) {
+                            count = false;
+                        }
+                    
+                }
+                } catch (Exception e) {
+                }
+                if (count) {
+                              ModeloOrden modelo =  new ModeloOrden(this.idOrden.getText(),Integer.parseInt(this.cantidad.getText()), this.fecha.getText(), this.tipoPago.getText(), this.idMesero.getText());
+            new AlumnoDAO().agregarRegistro(modelo.getIdOrden(), modelo.getFecha(), modelo.getCantidad(), modelo.getTipoDePago(), modelo.getIdMesero());
+  
+                }else{
+                    JOptionPane.showMessageDialog(null, "registro ya existente");
+                }
+                
+            } catch (Exception e) {
+            }
+          
+        }
+            
+        
+      //ModeloOrden modelo =  new ModeloOrden(this.idOrden.getText(),Integer.parseInt(this.cantidad.getText()), this.fecha.getText(), this.tipoPago.getText(), this.idMesero.getText());
+      //new AlumnoDAO().agregarRegistro(modelo.getIdOrden(), modelo.getFecha(), modelo.getCantidad(), modelo.getTipoDePago(), modelo.getIdMesero());
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         crearOrden();
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +224,6 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JCheckBox tipoPago;
+    private javax.swing.JTextField tipoPago;
     // End of variables declaration//GEN-END:variables
 }
