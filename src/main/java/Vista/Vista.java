@@ -52,6 +52,7 @@ public class Vista extends javax.swing.JFrame {
         filtrado = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         llenarTabla = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
 
         jInternalFrame1.setVisible(true);
 
@@ -131,7 +132,15 @@ public class Vista extends javax.swing.JFrame {
                 llenarTablaActionPerformed(evt);
             }
         });
-        jPanel1.add(llenarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
+        jPanel1.add(llenarTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, -1, -1));
+
+        buscar.setText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 80, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 480));
 
@@ -161,10 +170,35 @@ public class Vista extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_borrarMouseClicked
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        CargarTablaEspecifica(filtrado.getText().trim());
+    }//GEN-LAST:event_buscarActionPerformed
     public void CargarTabla(){
         DefaultTableModel modelo = (DefaultTableModel) tablaOrdenes.getModel();
         modelo.setRowCount(0);
         res = Prueba.Conexión.Consulta("Select * from Ordenes");
+        try {
+            while(res.next()){
+                Vector v = new Vector();
+                v.add(res.getString(1));
+                v.add(res.getString(2));
+                v.add(res.getInt(3));
+                v.add(res.getString(4));
+                v.add(res.getString(5));
+                modelo.addRow(v);
+                tablaOrdenes.setModel(modelo);
+                
+            }
+        } catch (SQLException e) {
+            
+            
+        }
+    }
+        public void CargarTablaEspecifica(String clave){
+        DefaultTableModel modelo = (DefaultTableModel) tablaOrdenes.getModel();
+        modelo.setRowCount(0);
+        res = Prueba.Conexión.Consulta("Select * from Ordenes where idOrden ='" + clave +"'");
         try {
             while(res.next()){
                 Vector v = new Vector();
@@ -228,6 +262,7 @@ public class Vista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel agregar;
     private javax.swing.JLabel borrar;
+    private javax.swing.JButton buscar;
     private javax.swing.JLabel editar;
     private javax.swing.JTextField filtrado;
     private javax.swing.JInternalFrame jInternalFrame1;
