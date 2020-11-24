@@ -93,6 +93,11 @@ public class Vista extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 610, 280));
 
         borrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Felipe\\Downloads\\seo-social-web-network-internet_262_icon-icons.com_61518.png")); // NOI18N
+        borrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                borrarMouseClicked(evt);
+            }
+        });
         jPanel1.add(borrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, 50, 50));
 
         editar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Felipe\\Downloads\\pencil-striped-symbol-for-interface-edit-buttons_icon-icons.com_56782 (2).png")); // NOI18N
@@ -136,19 +141,26 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_filtradoActionPerformed
 
     private void agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarMouseClicked
-        System.out.println("que queres");
+        new Formulario().setVisible(true);
     }//GEN-LAST:event_agregarMouseClicked
 
     private void llenarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llenarTablaActionPerformed
         CargarTabla();
     }//GEN-LAST:event_llenarTablaActionPerformed
+
+    private void borrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarMouseClicked
+        try {
+            String a = String.valueOf(tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 0));
+            System.out.println(a);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_borrarMouseClicked
     public void CargarTabla(){
         DefaultTableModel modelo = (DefaultTableModel) tablaOrdenes.getModel();
         modelo.setRowCount(0);
         res = Prueba.Conexión.Consulta("Select * from Ordenes");
         try {
             while(res.next()){
-                System.out.println("enttro");
                 Vector v = new Vector();
                 v.add(res.getString(1));
                 v.add(res.getString(2));

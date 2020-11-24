@@ -15,14 +15,25 @@ public class AlumnoDAO {
     
     
     
-    public void agregarRegistro(String idOrden, String fecha, int cantidad, String tipoPago, String idMesero)throws SQLException{
+    public static void agregarRegistro(String idOrden, String fecha, String cantidad, String tipoPago, String idMesero)throws SQLException{
         
-        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("(call EntradaArticulo(?,?,?,?,?))");
+        
+        
+        
+        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call Ingresar(?,?,?,?,?)}");
         entrada.setString(1,idOrden);
         entrada.setString(2,fecha);
-        entrada.setInt(3,cantidad); 
+        entrada.setString(3,cantidad);
         entrada.setString(4,tipoPago);
         entrada.setString(5,idMesero);
+        entrada.execute();
+        
+        
+    }
+       public static void eliminarRegistro(String idOrden)throws SQLException{
+        
+        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call EliminarArticulo(?)}");
+        entrada.setString(1,idOrden);
         entrada.execute();
         
         
