@@ -32,7 +32,16 @@ public class AlumnoDAO {
     }
        public static void eliminarRegistro(String idOrden)throws SQLException{
         
-        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call EliminarArticulo(?)}");
+        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call EliminarReg(?)}");
+        entrada.setString(1,idOrden);
+        entrada.execute();
+        
+        
+    }
+       
+      public static void buscarRegistro(String idOrden)throws SQLException{
+        
+        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call BuscarReg(?)}");
         entrada.setString(1,idOrden);
         entrada.execute();
         

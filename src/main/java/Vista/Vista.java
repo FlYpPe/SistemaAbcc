@@ -5,9 +5,11 @@
  */
 package Vista;
 
+import controlador.AlumnoDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -152,6 +154,10 @@ public class Vista extends javax.swing.JFrame {
         try {
             String a = String.valueOf(tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 0));
             System.out.println(a);
+            int opc = JOptionPane.showConfirmDialog(this,"Estas seguro de eliminar", "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if (opc == JOptionPane.YES_OPTION) {
+                AlumnoDAO.eliminarRegistro(a);
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_borrarMouseClicked
