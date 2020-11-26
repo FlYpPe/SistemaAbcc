@@ -72,7 +72,12 @@ public class Vista extends javax.swing.JFrame {
         jLabel2.setText("jLabel1");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 30));
 
-        jLabel3.setText("jLabel1");
+        jLabel3.setText("Gráficas");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 110, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Felipe\\Downloads\\fooddome_116536.png")); // NOI18N
@@ -174,6 +179,10 @@ public class Vista extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         CargarTablaEspecifica(filtrado.getText().trim());
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        new Graficas().setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
     public void CargarTabla(){
         DefaultTableModel modelo = (DefaultTableModel) tablaOrdenes.getModel();
         modelo.setRowCount(0);
