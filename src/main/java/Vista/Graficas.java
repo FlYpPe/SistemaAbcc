@@ -112,8 +112,6 @@ public class Graficas extends javax.swing.JFrame {
             while(rs.next()){
                 
                 datos.addValue(rs.getInt(2),"Grafica 1",rs.getString(1));
-                
-                
             }
             String tipoGrafica = jComboBox1.getSelectedItem().toString();
             if(tipoGrafica.equals("Barras")){
@@ -124,10 +122,10 @@ public class Graficas extends javax.swing.JFrame {
         }
         if(tipoGrafica.equals("Pastel")){
             DefaultPieDataset datosPie = new DefaultPieDataset();
-            datosPie.setValue("Uno", datos.getValue(0, 0));
-            datosPie.setValue("Dos", datos.getValue(0, 1));
-            datosPie.setValue("Tres", datos.getValue(0, 2));
-            datosPie.setValue("Cuatro", datos.getValue(0, 3));        
+            datosPie.setValue("M1", datos.getValue(0, 0));
+            datosPie.setValue("M2", datos.getValue(0, 1));
+            datosPie.setValue("M3", datos.getValue(0, 2));
+            datosPie.setValue("M4", datos.getValue(0, 3));        
             grafico = ChartFactory.createPieChart("Grafica Prueba", datosPie, true, true, false);
         }
         
