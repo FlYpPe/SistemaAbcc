@@ -5,12 +5,22 @@
  */
 package Vista;
 
+import Prueba.Conexión;
 import controlador.AlumnoDAO;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.*;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -40,7 +50,7 @@ public class Vista extends javax.swing.JFrame {
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        genReporte = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -66,8 +76,13 @@ public class Vista extends javax.swing.JFrame {
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("jLabel1");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 110, 30));
+        genReporte.setText("Reporte");
+        genReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                genReporteMouseClicked(evt);
+            }
+        });
+        jPanel2.add(genReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 110, 30));
 
         jLabel2.setText("jLabel1");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 30));
@@ -109,6 +124,11 @@ public class Vista extends javax.swing.JFrame {
         jPanel1.add(borrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, 50, 50));
 
         editar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Felipe\\Downloads\\pencil-striped-symbol-for-interface-edit-buttons_icon-icons.com_56782 (2).png")); // NOI18N
+        editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editarMouseClicked(evt);
+            }
+        });
         jPanel1.add(editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 60, 50, 50));
 
         agregar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Felipe\\Downloads\\1904677-add-addition-calculate-charge-create-new-plus_122527 (1).png")); // NOI18N
@@ -183,6 +203,45 @@ public class Vista extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         new Graficas().setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void genReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genReporteMouseClicked
+       
+        try {
+            Conexión cone = new Conexión();
+            cone.setCuenta("Felipe", "123");
+            Prueba.Conexión.getConexion();
+            Connection con = cone.getConexion();
+            JasperReport reporte = null;
+            
+            String path = "src\\main\\java\\Modelo\\reporte.jasper";
+            
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            
+            JasperPrint jprint = JasperFillManager.fillReport(reporte,null,con);
+            
+            JasperViewer view = new JasperViewer(jprint, false);
+            
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            
+            view.setVisible(true);
+            
+               
+            }catch(Exception e){
+                System.out.println("asd");
+            }
+// ;
+      //  
+       // String path ="";
+       // 
+                
+    }//GEN-LAST:event_genReporteMouseClicked
+
+    private void editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseClicked
+        
+        
+        
+        
+    }//GEN-LAST:event_editarMouseClicked
     public void CargarTabla(){
         DefaultTableModel modelo = (DefaultTableModel) tablaOrdenes.getModel();
         modelo.setRowCount(0);
@@ -274,8 +333,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JButton buscar;
     private javax.swing.JLabel editar;
     private javax.swing.JTextField filtrado;
+    private javax.swing.JLabel genReporte;
     private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

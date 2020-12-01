@@ -20,7 +20,7 @@ public class AlumnoDAO {
         
         
         
-        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call Ingresar(?,?,?,?,?)}");
+        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call Insertar(?,?,?,?,?)}");
         entrada.setString(1,idOrden);
         entrada.setString(2,fecha);
         entrada.setString(3,cantidad);
@@ -32,7 +32,7 @@ public class AlumnoDAO {
     }
        public static void eliminarRegistro(String idOrden)throws SQLException{
         
-        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call EliminarReg(?)}");
+        CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call Eliminar(?)}");
         entrada.setString(1,idOrden);
         entrada.execute();
         
