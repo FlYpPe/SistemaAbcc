@@ -20,7 +20,7 @@ public class Form extends javax.swing.JFrame {
     String idM;
     String fech;
     String pago;
-    int cant;
+    String cant;
     /**
      * Creates new form Form
      */
@@ -28,15 +28,24 @@ public class Form extends javax.swing.JFrame {
         
         
         
-        
+        cant = Vista.cant;
         idOr = Vista.id;
         id = Vista.id;
         idM = Vista.idM;
         fech = Vista.fecha;
         pago = Vista.pago;
+        
         initComponents();
+        this.idOrden.setText(this.idOr);
+        this.fecha.setText(this.fech);
+        this.cantidad.setText(this.cant);
+        this.idMesero.setText(this.idM);
+        this.tipoPago.setText(this.pago);
         idOrden.setText(idOr);
+        
         idOrden.setEditable(false);
+        setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -62,6 +71,7 @@ public class Form extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel5.setText("idMesero");
 
@@ -182,10 +192,11 @@ public class Form extends javax.swing.JFrame {
     ResultSet res;
     boolean count;
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        this.idOr = Vista.id;
+        
         count = true;
         
-        this.idOrden.setText(this.idOr);
+        
+        
         if (idOrden.getText().isEmpty() || !(cantidad.getText().matches("[0-9]*")) || fecha.getText().isEmpty() || tipoPago.getText().isEmpty() || idMesero.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "tiene numeros");
         }else{

@@ -31,7 +31,7 @@ public class Vista extends javax.swing.JFrame {
     public static String idM;
     public static String fecha;
     public static String pago;
-    public static int cant;
+    public static String cant;
     static ResultSet res;
     /**
      * Creates new form Vista
@@ -255,7 +255,7 @@ public class Vista extends javax.swing.JFrame {
         Vista.pago = pago;
     }
 
-    public static void setCant(int cant) {
+    public static void setCant(String cant) {
         Vista.cant = cant;
     }
 
@@ -263,11 +263,14 @@ public class Vista extends javax.swing.JFrame {
     
     private void editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseClicked
        
-           
-        String a = String.valueOf(tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 0));
+           try {
+            String a = String.valueOf(tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 0));
         setId(a);
         String b = String.valueOf(tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 1));
         setFecha(b);
+        String e = String.valueOf(tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 2));
+        setCant(e);
+        //int e = (int) tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 1);
         //int e = Integer.parseInt((tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 2)));
         //setCant(e);
         String c = String.valueOf(tablaOrdenes.getValueAt(tablaOrdenes.getSelectedRow(), 3));
@@ -276,6 +279,9 @@ public class Vista extends javax.swing.JFrame {
         setIdM(d);
         
         new Form().setVisible(true);
+        } catch (Exception e) {
+        }
+        
         
             
         

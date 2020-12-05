@@ -23,7 +23,9 @@ public class Graficas extends javax.swing.JFrame {
 
     /** Creates new form Graficas */
     public Graficas() {
+        
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /** This method is called from within the constructor to
