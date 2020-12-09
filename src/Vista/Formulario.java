@@ -156,7 +156,7 @@ public class Formulario extends javax.swing.JFrame {
         if (idOrden.getText().isEmpty() || !(cantidad.getText().matches("[0-9]*")) || fecha.getText().isEmpty() || tipoPago.getText().isEmpty() || idMesero.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "tiene numeros");
         }else{
-            JOptionPane.showMessageDialog(null, "No tiene numeros");
+            
             try {
                 String con = "Select COUNT(idOrden) from Ordenes where idOrden= '" + idOrden.getText().trim() + "'";
                 JOptionPane.showMessageDialog(null,con);
@@ -165,14 +165,13 @@ public class Formulario extends javax.swing.JFrame {
                 try {
                     
                     while(res.next()){
-                        JOptionPane.showMessageDialog(null,res.getString(1));
                         if (res.getInt(1)>=1) {
                             count = false;
                         }
                     
                 }
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "error 1");
+                    
                 }
                 if (count) {
             //ModeloOrden modelo =  new ModeloOrden(this.idOrden.getText(),Integer.parseInt(this.cantidad.getText()), this.fecha.getText(), this.tipoPago.getText(), this.idMesero.getText());
@@ -183,7 +182,7 @@ public class Formulario extends javax.swing.JFrame {
                 }
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "error");
+                JOptionPane.showMessageDialog(null, "falta de permisos");
             }
           
         }

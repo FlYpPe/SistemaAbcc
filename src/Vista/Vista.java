@@ -38,6 +38,7 @@ public class Vista extends javax.swing.JFrame {
      */
     public Vista() {
         initComponents();
+        CargarTabla();
         this.setLocationRelativeTo(null);
     }
 
