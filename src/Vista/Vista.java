@@ -195,6 +195,7 @@ public class Vista extends javax.swing.JFrame {
             int opc = JOptionPane.showConfirmDialog(this,"Estas seguro de eliminar", "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
             if (opc == JOptionPane.YES_OPTION) {
                 AlumnoDAO.eliminarRegistro(a);
+                CargarTabla();
             }
         } catch (Exception e) {
         }
@@ -287,6 +288,8 @@ public class Vista extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_editarMouseClicked
+
+    
     public void CargarTabla(){
         DefaultTableModel modelo = (DefaultTableModel) tablaOrdenes.getModel();
         modelo.setRowCount(0);

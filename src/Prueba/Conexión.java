@@ -68,7 +68,6 @@ public class Conexión {
                 ResultSet respuesta = declara.executeQuery(consulta);
                 return respuesta;
             } catch (SQLException e) {
-                
             }
             return null;
     }

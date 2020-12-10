@@ -26,6 +26,7 @@ public class Graficas extends javax.swing.JFrame {
         
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

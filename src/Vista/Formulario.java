@@ -154,12 +154,12 @@ public class Formulario extends javax.swing.JFrame {
             
         count = true;
         if (idOrden.getText().isEmpty() || !(cantidad.getText().matches("[0-9]*")) || fecha.getText().isEmpty() || tipoPago.getText().isEmpty() || idMesero.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "tiene numeros");
+            JOptionPane.showMessageDialog(null, "Error En la informacion");
         }else{
             
             try {
                 String con = "Select COUNT(idOrden) from Ordenes where idOrden= '" + idOrden.getText().trim() + "'";
-                JOptionPane.showMessageDialog(null,con);
+                //JOptionPane.showMessageDialog(null,con);
                 res = Prueba.Conexión.Consulta(con);
                 
                 try {
@@ -167,18 +167,37 @@ public class Formulario extends javax.swing.JFrame {
                     while(res.next()){
                         if (res.getInt(1)>=1) {
                             count = false;
+                            JOptionPane.showMessageDialog(null,"Registro ya existente");
                         }
+                }
                     
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "falta de permisos");
+                    count = false;
+                }
+                
+                res = Prueba.Conexión.Consulta("Select COUNT(idMesero) from Mesero where idMesero= '" + idMesero.getText().trim() + "'");
+                
+                try {
+                    
+                    while(res.next()){
+                        if (res.getInt(1)!=1) {
+                            count = false;
+                            JOptionPane.showMessageDialog(null, idMesero.getText() + res.getInt(1) +  "El mesero no existe");
+                        }
                 }
                 } catch (Exception e) {
-                    
+                    JOptionPane.showMessageDialog(null, "falta de permisos");
+                    count = false;
                 }
+                
                 if (count) {
             //ModeloOrden modelo =  new ModeloOrden(this.idOrden.getText(),Integer.parseInt(this.cantidad.getText()), this.fecha.getText(), this.tipoPago.getText(), this.idMesero.getText());
             AlumnoDAO.agregarRegistro(idOrden.getText(), fecha.getText(), cantidad.getText(), tipoPago.getText(), idMesero.getText());
-  
+            
+            
+            JOptionPane.showMessageDialog(null, "registro exitoso");
                 }else{
-                    JOptionPane.showMessageDialog(null, "registro ya existente");
                 }
                 
             } catch (Exception e) {

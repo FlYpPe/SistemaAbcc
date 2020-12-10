@@ -194,9 +194,7 @@ public class Form extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         
         count = true;
-        
-        
-        
+       
         if (idOrden.getText().isEmpty() || !(cantidad.getText().matches("[0-9]*")) || fecha.getText().isEmpty() || tipoPago.getText().isEmpty() || idMesero.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "tiene numeros");
         }else{
@@ -209,25 +207,38 @@ public class Form extends javax.swing.JFrame {
                 try {
                     
                     while(res.next()){
-                        JOptionPane.showMessageDialog(null,res.getString(1));
+                        //JOptionPane.showMessageDialog(null,res.getString(1));
                         if (res.getInt(1)>=1) {
                            // count = false;
                         }
                     
                 }
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "error 1");
+                    
                 }
+                res = Prueba.Conexión.Consulta("Select COUNT(idMesero) from Mesero where idMesero= '" + idMesero.getText().trim() + "'");
+                try {
+                    
+                    while(res.next()){
+                        if (res.getInt(1)!=1) {
+                            count = false;
+                            JOptionPane.showMessageDialog(null, idMesero.getText() + res.getInt(1) +  "El mesero no existe");
+                        }
+                }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "falta de permisos");
+                    count = false;
+                }
+                
                 if (count) {
             //ModeloOrden modelo =  new ModeloOrden(this.idOrden.getText(),Integer.parseInt(this.cantidad.getText()), this.fecha.getText(), this.tipoPago.getText(), this.idMesero.getText());
             AlumnoDAO.modificarRegistro(idOrden.getText(), fecha.getText(), cantidad.getText(), tipoPago.getText(), idMesero.getText());
-  
+               JOptionPane.showMessageDialog(null, "Actualización exitosa");
                 }else{
-                    JOptionPane.showMessageDialog(null, "registro ya existente");
                 }
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "error");
+                JOptionPane.showMessageDialog(null, "Falta de permisos");
             }
           
         }
