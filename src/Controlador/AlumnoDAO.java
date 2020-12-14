@@ -16,10 +16,7 @@ public class AlumnoDAO {
     
     
     public static void agregarRegistro(String idOrden, String fecha, String cantidad, String tipoPago, String idMesero)throws SQLException{
-        
-        
-        
-        
+
         CallableStatement entrada = Prueba.Conexión.getConexion().prepareCall("{call Insertar(?,?,?,?,?)}");
         entrada.setString(1,idOrden);
         entrada.setString(2,fecha);
