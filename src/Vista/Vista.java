@@ -88,7 +88,12 @@ public class Vista extends javax.swing.JFrame {
         });
         jPanel2.add(genReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 110, 30));
 
-        jLabel2.setText("jLabel1");
+        jLabel2.setText("Vistas");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 30));
 
         jLabel3.setText("Gráficas");
@@ -288,6 +293,10 @@ public class Vista extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_editarMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        new Vistas().setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     
     public void CargarTabla(){

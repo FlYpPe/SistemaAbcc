@@ -40,7 +40,7 @@ public class Form extends javax.swing.JFrame {
         this.fecha.setText(this.fech);
         this.cantidad.setText(this.cant);
         this.idMesero.setText(this.idM);
-        this.tipoPago.setText(this.pago);
+        
         idOrden.setText(idOr);
         
         idOrden.setEditable(false);
@@ -58,9 +58,7 @@ public class Form extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        idMesero = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        tipoPago = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         idOrden = new javax.swing.JTextField();
@@ -69,6 +67,8 @@ public class Form extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cantidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        tipoPago = new javax.swing.JComboBox<>();
+        meseros = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -84,12 +84,6 @@ public class Form extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        tipoPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoPagoActionPerformed(evt);
             }
         });
 
@@ -114,29 +108,39 @@ public class Form extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo de Pago");
 
+        tipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione..", "Efectivo", "Targeta", "N/A" }));
+        tipoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoPagoActionPerformed(evt);
+            }
+        });
+
+        meseros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M1", "M2", "M3", "M4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(fecha)
-                    .addComponent(idOrden)
-                    .addComponent(cantidad)
-                    .addComponent(idMesero)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(127, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(meseros, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1)
+                        .addComponent(fecha)
+                        .addComponent(idOrden)
+                        .addComponent(cantidad)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,8 +165,8 @@ public class Form extends javax.swing.JFrame {
                 .addComponent(tipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(idMesero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(meseros, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(33, 33, 33))
@@ -175,10 +179,6 @@ public class Form extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void tipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoPagoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
@@ -195,8 +195,8 @@ public class Form extends javax.swing.JFrame {
         
         count = true;
        
-        if (idOrden.getText().isEmpty() || !(cantidad.getText().matches("[0-9]*")) || fecha.getText().isEmpty() || tipoPago.getText().isEmpty() || idMesero.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "tiene numeros");
+        if (idOrden.getText().isEmpty() || !(cantidad.getText().matches("[0-9]*")) || fecha.getText().isEmpty() || tipoPago.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(null, "Revisar información");
         }else{
             //JOptionPane.showMessageDialog(null, "No tiene numeros");
             try {
@@ -216,23 +216,11 @@ public class Form extends javax.swing.JFrame {
                 } catch (Exception e) {
                     
                 }
-                res = Prueba.Conexión.Consulta("Select COUNT(idMesero) from Mesero where idMesero= '" + idMesero.getText().trim() + "'");
-                try {
-                    
-                    while(res.next()){
-                        if (res.getInt(1)!=1) {
-                            count = false;
-                            JOptionPane.showMessageDialog(null, idMesero.getText() + res.getInt(1) +  "El mesero no existe");
-                        }
-                }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "falta de permisos");
-                    count = false;
-                }
+
                 
                 if (count) {
             //ModeloOrden modelo =  new ModeloOrden(this.idOrden.getText(),Integer.parseInt(this.cantidad.getText()), this.fecha.getText(), this.tipoPago.getText(), this.idMesero.getText());
-            AlumnoDAO.modificarRegistro(idOrden.getText(), fecha.getText(), cantidad.getText(), tipoPago.getText(), idMesero.getText());
+            AlumnoDAO.modificarRegistro(idOrden.getText(), fecha.getText(), cantidad.getText(), tipoPago.getSelectedItem().toString(), meseros.getSelectedItem().toString());
                JOptionPane.showMessageDialog(null, "Actualización exitosa");
                 }else{
                 }
@@ -245,6 +233,10 @@ public class Form extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void tipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,7 +276,6 @@ public class Form extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cantidad;
     private javax.swing.JTextField fecha;
-    private javax.swing.JTextField idMesero;
     private javax.swing.JTextField idOrden;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -293,6 +284,7 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField tipoPago;
+    private javax.swing.JComboBox<String> meseros;
+    private javax.swing.JComboBox<String> tipoPago;
     // End of variables declaration//GEN-END:variables
 }
