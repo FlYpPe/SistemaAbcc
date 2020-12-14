@@ -118,7 +118,6 @@ public class Registro extends javax.swing.JFrame {
         Prueba.Conexión.Consulta(d);
         Prueba.Conexión.Consulta(e);
         Prueba.Conexión.Consulta(f);
-                System.out.println(a +"\n" + b+"\n"  + c+"\n"  + d+"\n"  + e+"\n"  + f);
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
                 
         } catch (Exception e) {
