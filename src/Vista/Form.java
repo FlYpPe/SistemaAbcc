@@ -39,7 +39,6 @@ public class Form extends javax.swing.JFrame {
         this.idOrden.setText(this.idOr);
         this.fecha.setText(this.fech);
         this.cantidad.setText(this.cant);
-        this.idMesero.setText(this.idM);
         
         idOrden.setText(idOr);
         
